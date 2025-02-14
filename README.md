@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/bf224a48-060c-40ad-b6eb-b5483ad95d59)# Pytorch Implementation of PointNet and PointNet++ for binary problem
+# Pytorch Implementation of PointNet and PointNet++ for binary problem
 This repo is implementation for PointNet and PointNet++ for binary (0 or 1) in pytorch.
 
 # Update
