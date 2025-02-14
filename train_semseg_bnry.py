@@ -16,16 +16,13 @@ import time
 import torch
 import provider
 
-# 변경: 기존 S3DISDataLoader 대신, 우리의 ShapeNetDataLoader_forSS.py의 SemanticDataset 사용
 from data_utils.ShapeNetDataLoader_forSS import SemanticDataset
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = BASE_DIR
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
 
-# binary segmentation: innerpoint, boundarypoint
-# seg_label_to_cat: 0 -> 'innerpoint', 1 -> 'boundarypoint'
-seg_label_to_cat = {0: 'innerpoint', 1: 'boundarypoint'}
+seg_label_to_cat = {0: 'class0', 1: 'class1'}
 
 def inplace_relu(m):
     classname = m.__class__.__name__
@@ -81,7 +78,6 @@ def main(args):
     log_string('PARAMETER ...')
     log_string(args)
 
-    # 수정: 데이터 경로는 기존 ShapeNet 형식의 custom dataset으로 설정
     root = './binary_data/shapenetcore_partanno_segmentation_benchmark_v0_normal'
     NUM_CLASSES = 1  # binary segmentation: 0 or 1
     NUM_POINT = args.npoint
@@ -92,20 +88,11 @@ def main(args):
     log_string("Start loading test data ...")
     TEST_DATASET = SemanticDataset(root=root, npoints=NUM_POINT, split='test', normal_channel=True)
 
-    #trainDataLoader = torch.utils.data.DataLoader(TRAIN_DATASET, batch_size=BATCH_SIZE, shuffle=True, num_workers=4,
-    #                                                pin_memory=True, drop_last=True,
-    #                                                worker_init_fn=lambda worker_id: np.random.seed(worker_id + int(time.time())))
-    #testDataLoader = torch.utils.data.DataLoader(TEST_DATASET, batch_size=BATCH_SIZE, shuffle=False, num_workers=4,
-                                                   #pin_memory=True, drop_last=True)
-    #pin_memory는 CUDA 메모리 할당 효율을 높일 수 있지만 필수는 아닙니다.
-    #drop_last는 배치 크기로 나누어 떨어지지 않을 때 마지막 배치를 버리는 옵션인데, 꼭 필요하지 않다면 제거해도 됩니다.
-    #worker_init_fn의 lambda 함수는 멀티프로세싱에서 pickle 문제가 발생할 수 있으므로, 이 부분도 제거해도 무방합니다.
     trainDataLoader = torch.utils.data.DataLoader(TRAIN_DATASET, batch_size=BATCH_SIZE, shuffle=True, num_workers=4)
     testDataLoader = torch.utils.data.DataLoader(TEST_DATASET, batch_size=BATCH_SIZE, shuffle=False, num_workers=4)
 
 
     # weights (if needed) -- binary segmentation might not need class weights;
-    # 여기서는 그냥 None 또는 torch.Tensor([1.0, 1.0])
     weights = None
 
     log_string("The number of training samples is: %d" % len(TRAIN_DATASET))
