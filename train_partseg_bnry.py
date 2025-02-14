@@ -250,12 +250,7 @@ def main(args):
                 seg_pred, _ = classifier(points, to_categorical(label, num_classes))
                 seg_pred_2 = seg_pred.contiguous().view(-1, num_part)
                 target_2 = target.view(-1, 1)[:, 0]
-
-                #print(seg_pred.size())
-                #print(seg_pred_2.size())
-                #print(target.size())
-                #print(target_2.size())
-                ##Test LOSS
+                
                 Test_loss = criterion(seg_pred_2, target_2, trans_feat) #trans_feat
                 Total_Test_loss += Test_loss
                 cur_pred_val = seg_pred.cpu().data.numpy()
