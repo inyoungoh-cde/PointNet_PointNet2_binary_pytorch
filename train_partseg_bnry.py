@@ -22,9 +22,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = BASE_DIR
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
 
-#seg_classes = {'Earphone': [16, 17, 18], 'Motorbike': [30, 31, 32, 33, 34, 35], 'Rocket': [41, 42, 43], 'Car': [8, 9, 10, 11], 'Laptop': [28, 29], 'Cap': [6, 7], 'Skateboard': [44, 45, 46], 'Mug': [36, 37], 'Guitar': [19, 20, 21], 'Bag': [4, 5], 'Lamp': [24, 25, 26, 27], 'Table': [47, 48, 49], 'Airplane': [0, 1, 2, 3], 'Pistol': [38, 39, 40], 'Chair': [12, 13, 14, 15], 'Knife': [22, 23]}
-#seg_classes = {'Hullplate': [0, 1]}  #, 'NoHullplate': [3]
-seg_classes = {'Hullplate': [0, 1, 2]}  #, 'NoHullplate': [3]
+seg_classes = {'OnlyOne': [0, 1]}
 
 seg_label_to_cat = {} # {0:Airplane, 1:Airplane, ...49:Table}
 for cat in seg_classes.keys():
@@ -270,14 +268,7 @@ def main(args):
                 Num_iter += 1
                 
                 for i in range(cur_batch_size):
-                    #cat = seg_label_to_cat[target[i, 0]]
-                    #logits = cur_pred_val_logits[i, :, :]
-                    # 기존에는 다중 클래스에서 argmax를 통해 최대 확률 값을 선택함
-                    #cur_pred_val[i, :] = np.argmax(logits[:, seg_classes[cat]], 1) + seg_classes[cat][0]
-                    
-                    # binary segmentation이므로 출력은 [batch, num_points, 1] 형태라고 가정
-                    logits = cur_pred_val_logits[i, :, 0]  # [num_points]짜리 1채널 출력
-                    # 0.5 임계값을 기준으로 1(참) 또는 0(거짓)으로 결정
+                    logits = cur_pred_val_logits[i, :, 0]
                     cur_pred_val[i, :] = np.where(logits > 0.5, 1, 0)
 
                 correct = np.sum(cur_pred_val == target)
