@@ -19,7 +19,7 @@ This repo is implementation for PointNet and PointNet++ for binary (0 or 1) in p
 
 # Part Segmentation for binary (ShapeNet)
 
-If the --normal flag is provided, the custom dataset's feature1 and feature2 are used; otherwise, the code operates with only the three channels: x, y, and z.
+If the --normal flag is provided, the custom dataset's feature1 and feature2 are used; otherwise, the code operates with only the three channels: x, y, and z. When testing, you must manually create a folder named "predicted_results" in the directory specified by log_dir. In the future, we plan to modify the code to automatically create this folder.
 
 - PointNet
   
