@@ -35,7 +35,7 @@ If the --normal flag is provided, the custom dataset's feature1 and feature2 are
 
 # Semantic Segmentation (ShapeNet)
 
-All five input channels are used.
+All five input channels (x, y, z, feature1, feature2) are used.
 
 - PointNet++
 
