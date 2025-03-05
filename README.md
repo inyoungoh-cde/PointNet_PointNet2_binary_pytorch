@@ -2,6 +2,12 @@
 This repo is implementation for PointNet and PointNet++ for binary (0 or 1) in pytorch.
 
 # Update
+03/05/2025:
+
+(1) We are trying to fix some minor issues related to the part segmentation.
+
+(2) The codes for semantic segmentation are working.
+
 02/14/2025:
 
 (1) Our code is heavily based on https://github.com/yanx27/Pointnet_Pointnet2_pytorch
