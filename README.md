@@ -23,15 +23,15 @@ This repo is implementation for PointNet and PointNet++ for binary (0 or 1) in p
 - Python 3.7.1
 - PyTorch 1.7.0
 
-%# Part Segmentation for binary (ShapeNet)
+# Part Segmentation for binary (ShapeNet)
 
-%If the --normal flag is provided, the custom dataset's feature1 and feature2 are used; otherwise, the code operates with only the three channels: x, y, and z. When testing, you must manually create a folder named "predicted_results" in the directory specified by log_dir. In the future, we plan to modify the code to automatically create this folder.
+If the --normal flag is provided, the custom dataset's feature1 and feature2 are used; otherwise, the code operates with only the three channels: x, y, and z. When testing, you must manually create a folder named "predicted_results" in the directory specified by log_dir. In the future, we plan to modify the code to automatically create this folder.
 
-%- PointNet
+- PointNet
   
-%  (1) Train: python train_partseg_bnry.py --normal --npoint 500 --batch_size 10 --epoch 50 --gpu 0 --model pointnet_part_seg_binary --log_dir pointnet_part_seg_binary
+  (1) Train: python train_partseg_bnry.py --normal --npoint 500 --batch_size 10 --epoch 50 --gpu 0 --model pointnet_part_seg_binary --log_dir pointnet_part_seg_binary
 
-%  (2) Test: python test_partseg_bnry.py --normal --num_point 500 --batch_size 160 --gpu 0 --log_dir pointnet_part_seg_binary
+  (2) Test: python test_partseg_bnry.py --normal --num_point 500 --batch_size 160 --gpu 0 --log_dir pointnet_part_seg_binary
 
 - PointNet++
 
